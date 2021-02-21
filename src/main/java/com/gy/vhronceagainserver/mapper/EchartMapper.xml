@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gy.vhronceagainserver.mapper.EchartMapper">
+    <resultMap id="BaseResultMap" type="com.gy.vhronceagainserver.model.ZhiliangGY">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="riqi" property="riqi" jdbcType="DATE"/>
+        <result column="brand" property="brand" jdbcType="VARCHAR"/>
+        <result column="class" property="erclass" jdbcType="VARCHAR"/>
+        <result column="jnumber" property="jnumber" jdbcType="INTEGER"/>
+        <result column="actualscore" property="actualscore" jdbcType="FLOAT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,riqi,brand,class,jnumber,actualscore
+    </sql>
+
+    <select id="selectAverageByBrand" resultMap="BaseResultMap">
+        SELECT
+            fa_zhilianggy.brand,
+            AVG(fa_zhilianggy.actualscore) AS actualscore
+        FROM
+            fa_zhilianggy
+        WHERE
+            fa_zhilianggy.riqi BETWEEN '2020-9-1' AND '2020-9-30'
+        GROUP BY
+            fa_zhilianggy.brand
+    </select>
+
+</mapper>
